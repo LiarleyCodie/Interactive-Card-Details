@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="index.css">
+
+  <title>Frontend Mentor | Interactive card details form</title>
+</head>
+
+<body>
+  <header class="header">
+    <div class="cards">
+      <div class="card-back card">
+        <img src="images/bg-card-back.png" alt="">
+        <div class="informations">
+          <div class="cvc">000</div>
+        </div>
+      </div>
+      <div class="card-front card">
+        <img src="images/bg-card-front.png" alt="">
+        <div class="informations">
+          <div class="circle"></div>
+          <div class="texts">
+            <h1 class="card-number" id="cardNumber">0000 0000 0000 0000</h1>
+            <div class="name-date">
+              <p class="name">Jane Appleseed</p>
+              <p class="date">00/00</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <form>
+      <div class="input-wrapper">
+        <label for="cardHolderName">Cardholder Name</label>
+        <div class="input-border">
+          <input placeholder="e.g. Jane Appleseed" type="text" id="cardHolderName">
+        </div>
+      </div>
+      <div class="input-wrapper">
+        <label for="cardHolderName">Card Number</label>
+        <div class="input-border">
+          <input placeholder="e.g. 1234 5678 9123 0000" type="text" id="cardNumber">
+        </div>
+      </div>
+      <div class="input-wrapper">
+        <div class="exp-date-wrapper">
+          <label>Exp.Date (MM/YY)</label>
+          <div>
+            <div class="input-border">
+              <input placeholder="MM" type="number">
+            </div>
+            <div class="input-border">
+              <input placeholder="YY" type="number">
+            </div>
+          </div>
+        </div>
+        <div class="cvc-wrapper">
+          <label for="cvcInput">CVC</label>
+          <div class="input-border">
+          <input placeholder="e.g. 123" type="number" id="cvcInput">
+        </div>
+        </div>
+      </div>
+      <input type="submit" value="Confirm" id="submitButton">
+    </form>
+  </main>
+
+  <script src="index.js"></script>
+</body>
+
+</html>
