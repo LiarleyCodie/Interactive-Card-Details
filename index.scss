@@ -19,184 +19,501 @@ $white: hsl(0, 0%, 100%);
 $light-grayish-violet: hsl(270, 3%, 87%);
 $dark-grayish-violet: hsl(279, 6%, 55%);
 $very-dark-violet: hsl(278, 68%, 11%);
+$dark-violet: hsl(278, 68%, 18%);
 
 body {
     min-height: 100vh;
     font-family: 'Space Grotesk', sans-serif;
-    display: flex;
-    flex-direction: column;
 }
 
 .header {
     background-image: url("images/bg-main-mobile.png");
-    background-position: center;
-    background-repeat: no-repeat;
     background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
     position: relative;
     height: 20rem;
 
     .card {
         display: flex;
-        border-radius: 1rem;
+        border-radius: 0.7rem;
+        width: 26rem;
+        overflow: hidden;
         position: absolute;
-        width: 85%;
-        margin: 1.3rem;
 
         img {
             width: 100%;
         }
 
         .informations {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
-            padding: 1.8rem;
+            top: 0;
+            left: 0;
+            position: absolute;
+            color: $light-grayish-violet;
         }
 
-        &-back {
-            right: 0;
+        // Card backside
+        &.backside {
+            right: 5%;
+            top: 10%;
 
             .informations {
-                .cvc {
-                    color: $light-grayish-violet;
+                &-cvc {
                     position: absolute;
-                    right: 0;
-                    margin: 3.5rem;
-                    top: 21%;
+                    right: 12%;
+                    top: 43.5%;
                     font-size: 1.2rem;
+                    color: #2f2f2f;
                 }
             }
         }
 
-        &-front {
-            bottom: -30%;
+        // Card frontside
+        &.frontside {
+            bottom: -20%;
+            left: 5%;
+            box-shadow: 0 1rem 2rem -1rem hsla(278, 68%, 11%, 0.5);
+
+            .circle {
+                background: $light-grayish-violet;
+                width: 2.5rem;
+                height: 2.5rem;
+                border-radius: 50%;
+                position: relative;
+
+                &::before {
+                    content: "";
+                    width: 38%;
+                    height: 38%;
+                    border: 1px solid $light-grayish-violet;
+                    position: absolute;
+                    right: -2rem;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    border-radius: 50%;
+                }
+            }
 
             .informations {
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
+                padding: 2rem;
 
-                .texts {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    color: $light-grayish-violet;
-
+                &-texts {
                     .card-number {
+                        font-size: 1.8rem;
                         font-weight: 500;
-                        font-size: 2.1rem;
+                        letter-spacing: 0.1rem;
+                        margin-bottom: 1rem;
                     }
 
-                    .name-date {
+                    .sub-informations {
                         display: flex;
-                        justify-content: space-between;
                         width: 100%;
+                        align-items: center;
+                        justify-content: space-between;
                         font-size: 1rem;
+                        letter-spacing: 0.1rem;
                         text-transform: uppercase;
-                        margin-top: 1rem;
-                    }
-                }
-
-                .circle {
-                    $size: 3rem;
-                    width: $size;
-                    height: $size;
-                    background: $light-grayish-violet;
-                    top: 0;
-                    border-radius: 50%;
-                    position: relative;
-
-                    &::after {
-                        content: "";
-                        position: absolute;
-                        right: -2.25rem;
-                        top: 50%;
-                        transform: translateY(-50%);
-                        width: 40%;
-                        height: 40%;
-                        border: 1px solid $light-grayish-violet;
-                        border-radius: 50%;
                     }
                 }
             }
-
-            box-shadow: 0 3rem 3rem -1.5rem hsla(278, 68%, 11%, 0.3);
         }
     }
 }
 
 .main {
-    display: flex;
-    flex-direction: column;
-    padding: 8rem 2rem 4rem 2rem;
+    padding: 8rem 2rem 3rem;
+    display: grid;
+    place-items: center;
 
-    form {
-        display: flex;
-        flex-direction: column;
-        row-gap: 2rem;
+    .limiter {
+        width: 100%;
+        max-width: 30rem;
 
-        .input-wrapper {
-            label {
-                display: block;
-                font-size: 1.1rem;
-                color: $very-dark-violet;
-                text-transform: uppercase;
-                letter-spacing: 0.2rem;
-                font-weight: 500;
-                margin-bottom: 0.5rem;
-            }
+        .register {
+            display: none;
 
-            .input-border {
-                width: 100%;
-                padding: 0.12rem;
-                border-radius: 0.5rem;
-                background: $light-grayish-violet;
-
-                &:focus-within {
-                    background: $active-input-border;
-                }
-            }
-
-            input {
-                outline: none;
-                width: 100%;
-                padding: 0.95rem;
-                border: none;
-                border-radius: 0.5rem;
-                color: $very-dark-violet;
-
-                &::placeholder {
-                    color: $dark-grayish-violet;
-                }
-            }
-
-            div {
-                width: 50%;
-
-                div {
-                    display: flex;
-                    column-gap: 0.75rem;
-                    width: 100%;
-                }
-            }
-
-            &:last-of-type {
+            form {
                 display: flex;
-                column-gap: 1rem;
+                flex-direction: column;
+                row-gap: 2rem;
+
+                label {
+                    display: block;
+                    color: $very-dark-violet;
+                    text-transform: uppercase;
+                    letter-spacing: 0.1rem;
+                    font-size: 1.2rem;
+                }
+
+                input {
+                    outline: none;
+                    border: none;
+                    font-size: 1.4rem;
+                    color: $very-dark-violet;
+
+                    &::placeholder {
+                        color: $dark-grayish-violet;
+                        font-size: 1.4rem;
+                    }
+
+                    // For text inputs
+                    &[type="text"],
+                    &[type="number"] {
+                        font-family: inherit;
+                        width: 100%;
+                        padding: 0.75rem 1rem;
+                        border-radius: 0.5rem;
+                    }
+
+                    /* Chrome, Safari, Edge, Opera */
+                    &::-webkit-outer-spin-button,
+                    &::-webkit-inner-spin-button {
+                        -webkit-appearance: none;
+                        margin: 0;
+                    }
+
+                    /* Firefox */
+                    &[type=number] {
+                        -moz-appearance: textfield;
+                    }
+                }
+
+                // Input borders
+                .input-border {
+                    display: flex;
+                    background: $light-grayish-violet;
+                    padding: 0.1rem;
+                    border-radius: 0.6rem;
+                    margin: 0.6rem 0;
+
+                    &:focus-within {
+                        background: $active-input-border;
+                    }
+                }
+
+                .text-error {
+                    display: none;
+                    font-size: 1.2rem;
+                    color: $red-input-errors;
+                    position: absolute;
+                }
+
+                .error {
+                    .input-border {
+                        background: $red-input-errors;
+                    }
+
+                    .text-error {
+                        display: block;
+                    }
+                }
+
+                // Exp.date and CVC inputs
+                .inputs-wrapper {
+                    display: flex;
+                    column-gap: 1rem;
+
+                    .left-wrapper,
+                    .right-wrapper {
+                        width: 50%;
+                    }
+
+                    .left-wrapper {
+                        position: relative;
+                        display: grid;
+                        grid-template-rows: auto auto;
+                        grid-template-columns: auto auto;
+                        grid-template-areas: "label label"
+                            "mmInput yyInput";
+                        grid-column-gap: 0.5rem;
+
+                        label {
+                            grid-area: label;
+                        }
+
+                        .text-error {
+                            bottom: -1.53rem;
+                        }
+                    }
+                }
+
+                .confirm {
+                    font-family: inherit;
+                    color: $light-grayish-violet;
+                    background: $very-dark-violet;
+                    font-weight: 500;
+                    font-size: 1.6rem;
+                    letter-spacing: 0.1rem;
+                    padding: 1.25rem 0;
+                    border-radius: 0.8rem;
+                    cursor: pointer;
+                    transition: transform 150ms ease;
+
+                    &:hover {
+                        background: $dark-violet;
+                        transform: scale(1.02);
+                    }
+
+                    &:focus-within {
+                        background: $dark-violet;
+                        outline: 0.4rem solid hsla(249, 99%, 64%,0.5);
+                    }
+                }
+
             }
-
         }
+    }
 
-        input[type="submit"] {
-            background: $very-dark-violet;
-            padding: 1.3rem 0;
-            color: $light-grayish-violet;
-            font-family: inherit;
-            font-size: 1.6rem;
-            border: none;
-            border-radius: 1rem;
+    &[data-current-screen="register"] {
+        .register {
+            display: block;
+        }
+    }
+
+    &[data-current-screen="finish"] {
+        .finish {
+            display: block;
+        }
+    }
+}
+
+@media screen and (min-width: 375px) {
+    .header {
+        .card {
+            border-radius: 0.7rem;
+            width: 28rem;
+
+            // Card frontside
+            &.frontside {
+                bottom: -27%;
+
+                .circle {
+                    width: 3rem;
+                    height: 3rem;
+
+                    &::before {
+                        content: "";
+                        width: 40%;
+                        height: 40%;
+                        right: -2.3rem;
+                    }
+                }
+
+                .informations {
+                    &-texts {
+                        .card-number {
+                            font-size: 1.9rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .main {
+        padding: 10rem 2rem 3rem;
+
+        .limiter {
+            max-width: 32rem;
+        }
+    }
+
+}
+
+@media screen and (min-width: 768px) {
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        column-gap: 2rem;
+        background-position: top center;
+        height: 24rem;
+    
+        .card {
+            border-radius: 0.7rem;
+            width: 30rem;
+            position: relative;
+    
+            // Card backside
+            &.backside {
+                right: 0;
+                top: 0;
+                order: 2;
+            }
+    
+            // Card frontside
+            &.frontside {
+                bottom: 0;
+                left: 0;
+                order: 1;
+    
+                .circle {
+                    width: 3.4rem;
+                    height: 3.4rem;
+    
+                    &::before {
+                        width: 38%;
+                        height: 38%;
+                        right: -2.5rem;
+                    }
+                }
+    
+                .informations {    
+                    &-texts {
+                        .card-number {
+                            font-size: 2rem;
+                            margin-bottom: 1.25rem;
+                        }
+                    }
+                }
+            }
+        }
+    } 
+
+    .main {
+        padding: 6rem 2rem 3rem;
+    
+        .limiter {
+            width: 100%;
+            max-width: 36rem;
+    
+            .register {
+    
+                form {
+                    row-gap: 2rem;
+    
+                    label {
+                        font-size: 1.3rem;
+                        letter-spacing: 0.2rem;
+                    }
+    
+                    input {
+                        font-size: 1.6rem;
+    
+                        &::placeholder {
+                            font-size: 1.8rem;
+                        }
+    
+                        // For text inputs
+                        &[type="text"],
+                        &[type="number"] {
+                            padding: 1rem 2rem;
+                        }
+                    }
+    
+                    .text-error {
+                        font-size: 1.4rem;
+                    }    
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    body {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+
+        
+    }
+
+    .header {
+        background-image: url("images/bg-main-desktop.png");
+        height: 100%;
+        flex-direction: column;
+
+        .card {
+            width: 36rem;
+            margin: 1rem;
+            box-shadow: 0 1rem 2rem -1rem hsla(278, 68%, 11%, 0.25);
+    
+            // Card backside
+            &.backside {
+                right: -40%;
+                top: 0;
+    
+                .informations {
+                    &-cvc {
+                        right: 12%;
+                        top: 45.25%;
+                        font-size: 1.4rem;
+                    }
+                }
+            }
+    
+            // Card frontside
+            &.frontside {
+                bottom: 0;
+                left: 25%;
+                
+    
+                .circle {
+                    width: 4rem;
+                    height: 4rem;
+    
+                    &::before {
+                        width: 38%;
+                        height: 38%;
+                        right: -3rem;
+                    }
+                }
+    
+                .informations {
+                    padding: 2.5rem;
+    
+                    &-texts {
+                        .card-number {
+                            font-size: 2.4rem;
+                            font-weight: 600;
+                            margin-bottom: 1.6rem;
+                        }
+    
+                        .sub-informations {
+                            font-weight: 600;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .main {
+        .limiter {
+            max-width: 30rem;
+    
+            .register {
+    
+                form {
+                    row-gap: 2.5rem;
+                    label {
+                        font-size: 1rem;
+                    }
+    
+                    input {
+                        font-size: 1.4rem;
+    
+                        &::placeholder {
+                            font-size: 1.4rem;
+                        }
+    
+                        // For text inputs
+                        &[type="text"],
+                        &[type="number"] {
+                            padding: 0.75rem 1rem;
+                        }
+                    }
+    
+                    .text-error {
+                        font-size: 1.2rem;
+                    }    
+                }
+            }
         }
     }
 }

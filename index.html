@@ -4,7 +4,7 @@
 <head>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,64 +18,87 @@
 
 <body>
   <header class="header">
-    <div class="cards">
-      <div class="card-back card">
-        <img src="images/bg-card-back.png" alt="">
-        <div class="informations">
-          <div class="cvc">000</div>
-        </div>
+    <div class="card backside">
+      <img src="images/bg-card-back.png" alt="Illustration of the back of a credit card" class="background">
+      <div class="informations">
+        <p class="informations-cvc" id="cvcReference">000</p>
       </div>
-      <div class="card-front card">
-        <img src="images/bg-card-front.png" alt="">
-        <div class="informations">
-          <div class="circle"></div>
-          <div class="texts">
-            <h1 class="card-number" id="cardNumber">0000 0000 0000 0000</h1>
-            <div class="name-date">
-              <p class="name">Jane Appleseed</p>
-              <p class="date">00/00</p>
-            </div>
+    </div>
+    <div class="card frontside">
+      <img src="images/bg-card-front.png" alt="Illustration of the front of a credit card" class="background">
+      <div class="informations">
+        <div class="circle"></div>
+
+        <div class="informations-texts">
+          <h1 class="card-number" id="numberReference">0000 0000 0000 0000</h1>
+          <div class="sub-informations">
+            <p class="name" id="nameReference">Jane Appleseed</p>
+            <div class="expiration-date" id="expDateReference">00/00</div>
           </div>
         </div>
       </div>
     </div>
   </header>
-
-  <main class="main">
-    <form>
-      <div class="input-wrapper">
-        <label for="cardHolderName">Cardholder Name</label>
-        <div class="input-border">
-          <input placeholder="e.g. Jane Appleseed" type="text" id="cardHolderName">
-        </div>
-      </div>
-      <div class="input-wrapper">
-        <label for="cardHolderName">Card Number</label>
-        <div class="input-border">
-          <input placeholder="e.g. 1234 5678 9123 0000" type="text" id="cardNumber">
-        </div>
-      </div>
-      <div class="input-wrapper">
-        <div class="exp-date-wrapper">
-          <label>Exp.Date (MM/YY)</label>
-          <div>
+  <main class="main" data-current-screen="register">
+    <div class="limiter">
+      <div class="register">
+        <form>
+          <!-- The "error" class will show the error text and red color -->
+          <!-- Card name -->
+          <div class="input-wrapper">
+            <label for="cardName">CardHolder Name</label>
             <div class="input-border">
-              <input placeholder="MM" type="number">
+              <input type="text" placeholder="e.g. Jane Appleseed" id="cardName">
             </div>
+            <span class="text-error">Use only letters, without accents!</span>
+          </div>
+
+          <!-- Card number -->
+          <div class="input-wrapper">
+            <label for="cardName">Card Number</label>
             <div class="input-border">
-              <input placeholder="YY" type="number">
+              <input type="text" placeholder="e.g. 1234 5678 9123 0000" id="cardNumber">
+            </div>
+            <span class="text-error">Use only numbers!</span>
+          </div>
+
+          <!-- Expiration Date and CVC Code -->
+          <div class="inputs-wrapper">
+            <!-- Month and Year Expiration date -->
+            <div class="left-wrapper">
+              <label>Exp. Date (MM/YY)</label>
+              <div class="input-wrapper">
+                <div class="input-border">
+                  <input type="number" min="0" placeholder="MM" id="expirationMonth">
+                </div>
+              </div>
+
+              <div class="input-wrapper">
+                <div class="input-border">
+                  <input type="number" min="0" placeholder="YY" id="expirationYear">
+                </div>
+              </div>
+              <span class="text-error">Can't be blank!</span>
+            </div>
+
+            <!-- CVC Code -->
+            <div class="right-wrapper">
+              <div class="input-wrapper">
+                <label for="cardName">CVC</label>
+                <div class="input-border">
+                  <input type="number" min="0" placeholder="e.g. 123" id="cvcCode">
+                </div>
+                <span class="text-error">Can't be blank!</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="cvc-wrapper">
-          <label for="cvcInput">CVC</label>
-          <div class="input-border">
-          <input placeholder="e.g. 123" type="number" id="cvcInput">
-        </div>
-        </div>
+
+          <input type="button" value="Confirm" id="confirmButton" class="confirm">
+        </form>
       </div>
-      <input type="submit" value="Confirm" id="submitButton">
-    </form>
+      <div class="finish">
+      </div>
+    </div>
   </main>
 
   <script src="index.js"></script>
