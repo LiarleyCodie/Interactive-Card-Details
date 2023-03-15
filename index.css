@@ -6,6 +6,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  border-style: none;
 }
 
 body {
@@ -405,6 +406,7 @@ body {
   }
   .main .limiter .register form {
     row-gap: 2.5rem;
+    animation: opacityIn 0.5s ease backwards;
   }
   .main .limiter .register form label {
     font-size: 1rem;
@@ -433,6 +435,12 @@ body {
     opacity: 0;
   }
 }
+@keyframes opacityOut {
+  to {
+    opacity: 0;
+  }
+}
+
 @keyframes fallOut {
   to {
     transform: scale(0.98);

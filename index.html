@@ -45,7 +45,7 @@
     </div>
   </header>
 
-  <main class="main" data-current-screen="register">
+  <main class="main" data-current-screen="register" id="main">
     <div class="limiter">
       <div class="register">
         <form>
@@ -65,13 +65,13 @@
             <div class="input-border">
               <input type="text" maxlength="19" placeholder="e.g. 1234 5678 9123 0000" id="cardNumberInput" required>
             </div>
-            <span class="text-error">Can't be blank!</span>
+            <span class="text-error">Enter a valid card number</span>
           </div>
 
           <!-- Expiration Date and CVC Code -->
           <div class="inputs-wrapper">
             <!-- Month and Year Expiration date -->
-            <div class="left-wrapper">
+            <div class="left-wrapper" id="mmYyWrapper">
               <label>Exp. Date (MM/YY)</label>
               <div class="input-wrapper">
                 <div class="input-border">
@@ -84,17 +84,17 @@
                   <input type="number" min="1" placeholder="YY" id="expirationYearInput" required>
                 </div>
               </div>
-              <span class="text-error">Can't be blank!</span>
+                  <span class="text-error">Can't be blank!</span>
             </div>
 
             <!-- CVC Code -->
             <div class="right-wrapper">
-              <div class="input-wrapper">
+              <div class="input-wrapper" id="cvcInputWrapper">
                 <label for="cardName">CVC</label>
                 <div class="input-border">
                   <input type="number" placeholder="e.g. 123" id="cvcCodeInput" required>
                 </div>
-                <span class="text-error">Use only numbers!</span>
+                <span class="text-error">Enter a valid cvc number</span>
               </div>
             </div>
           </div>

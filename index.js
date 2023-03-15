@@ -1,6 +1,7 @@
 class Input {
-	constructor(element, length) {
+	constructor(element, wrapper, length) {
 		this.element = document.querySelector(`#${element}`)
+		this.wrapper = document.querySelector(`#${wrapper}`)
 		this.length = length
 	}
 	init(callback) {
@@ -18,7 +19,8 @@ class Input {
 	}
 }
 
-var existInvalidEntry = false
+var existInvalidEntry = true
+const main = document.querySelector("#main")
 
 onload = () => {
 	cardNameInput.init()
@@ -26,18 +28,44 @@ onload = () => {
 	cvcInput.init()
 	monthInput.init()
 	yearInput.init()
+	confirmButton.init()
 }
 
+const confirmButton = {
+	element: document.querySelector("#confirmButton"),
+	init: function() {
+		this.element.addEventListener("click", ev => {
+			ev.preventDefault()
+			monthInput.confirmEntry()
+			yearInput.confirmEntry()
+			cvcInput.confirmEntry()
+			cardNameInput.confirmEntry()
+			cardNumberInput.confirmEntry()
+
+			if (!existInvalidEntry) {
+				const registerScreen = document.querySelector(".register")
+				registerScreen.style.animation = "opacityOut 0.5s ease backwards"
+				registerScreen.addEventListener("animationend", () => {	
+					main.setAttribute("data-current-screen", "finish")
+				})
+			}
+
+		})
+	}
+}
 const cardNameInput = {
 	element: document.querySelector("#cardNameInput"),
 	wrapper: document.querySelector("#nameInputWrapper"),
 	chars: "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ",
 	init: function() {
 		this.element.addEventListener("input", () => {
-			this.updateErrorElement(this.parseChars())
+			this.updateErrorElement(!this.parseChars())
 			if (this.parseChars()) {
 				cardNameReference.updateElement(this.element.value)
 				cardNameReference.checkEmpty()
+			}
+			if (this.element.length == "") {
+				this.confirmEntry()
 			}
 		})
 	},
@@ -45,19 +73,26 @@ const cardNameInput = {
 		const inputValue = this.element.value
 		const validEntry = inputValue.split("").every(char => this.chars.includes(char))
 		if (validEntry) {
-			existInvalidEntry = false
 			return true
 		}
 		else {
-			existInvalidEntry = true
 			return false
 		}
 	},
 	updateErrorElement: function(state) {
-		if (!state)
+		if (state)
 			this.wrapper.classList.add("error")
 		else
 			this.wrapper.classList.remove("error")
+	},
+	confirmEntry: function() {
+		if (this.element.value == "") {
+			this.updateErrorElement(true)
+			existInvalidEntry = true
+		} else if (this.element.value.split("").every(char => this.chars.includes(char))) {
+			this.updateErrorElement(false)
+			existInvalidEntry = false
+		}
 	}
 }
 const cardNumberInput = {
@@ -76,10 +111,15 @@ const cardNumberInput = {
 			}
 
 			this.parseChars()
+			this.checkEntry()
+			cardNumberReference.updateElement(this.element.value)
+			cardNumberReference.checkEmpty()
+
+
 		})
 	},
 	updateErrorElement: function(state) {
-		if (!state)
+		if (state)
 			this.wrapper.classList.add("error")
 		else
 			this.wrapper.classList.remove("error")
@@ -100,6 +140,26 @@ const cardNumberInput = {
 			if (currentValue.length <= 0) {
 				this.whiteSpaces = 0
 			}
+		}
+	},
+	checkEntry: function() {
+		if (this.element.value.length < 19 && this.element.value.length > 0) {
+			this.updateErrorElement(true)
+			existInvalidEntry = true
+			return true
+		} else {
+			this.updateErrorElement(false)
+			existInvalidEntry = false
+			return false
+		}
+	},
+	confirmEntry: function() {
+		if (this.element.value === "") {
+			this.updateErrorElement(true)
+			existInvalidEntry = true
+		} else if (this.checkEntry()) {
+			this.updateErrorElement(false)
+			existInvalidEntry = false
 		}
 	}
 }
@@ -127,13 +187,74 @@ const cardMonthReference = {
 		}
 	}
 }
+const cardYearReference = {
+	element: document.querySelector("#year"),
+	default: "0",
+	updateElement: function(value) {
+		this.element.innerText = value < 10 ? "0" + value : value
+		// console.log(charsLength)
+	},
+	checkEmpty: function() {
+		if (this.element.innerText.length <= 1) {
+			this.updateElement(this.default)
+		}
+	}
+}
+const cardCvcReference = {
+	element: document.querySelector("#cvcReference"),
+	default: "000",
+	updateElement: function(value) {
+		this.element.innerText = value
 
-const cvcInput = new Input("cvcCodeInput", 3)
+	},
+	checkEmpty: function() {
+		if (this.element.innerText.length < 1) {
+			this.updateElement(this.default)
+		}
+	}
+}
+const cardNumberReference = {
+	element: document.querySelector("#numberReference"),
+	default: "0000 0000 0000 0000",
+	updateElement: function(value) {
+		this.element.innerText = value
+	},
+	checkEmpty: function() {
+		if (this.element.innerText.length <= 0) {
+			this.updateElement(this.default)
+		}
+	}
+}
+
+const cvcInput = new Input("cvcCodeInput", "cvcInputWrapper", 3)
 cvcInput.init(function() {
 	cvcInput.parseChars()
+	cvcInput.checkEntry()
+	cardCvcReference.updateElement(cvcInput.element.value)
+	cardCvcReference.checkEmpty()
+	if (cvcInput.element.value == "")
+		cvcInput.confirmEntry()
 })
+cvcInput.checkEntry = function() {
+	if (cvcInput.element.value < 99 && cvcInput.element.value.length > 0 && cvcInput.element.value[0] != 0) {
+		cvcInput.wrapper.classList.add("error")
+		existInvalidEntry = true
+	} else if (cvcInput.element.value > 99){
+		cvcInput.wrapper.classList.remove("error")
+		existInvalidEntry = false
+	}
+}
+cvcInput.confirmEntry = function() {
+	if (cvcInput.element.value === "") {
+		cvcInput.wrapper.classList.add("error")
+		existInvalidEntry = true
+	} else if (cvcInput.element.value > 99) {
+		cvcInput.wrapper.classList.remove("error")
+		existInvalidEntry = false
+	}
+}
 
-const monthInput = new Input("expirationMonthInput", 2)
+const monthInput = new Input("expirationMonthInput", "mmYyWrapper", 2)
 monthInput.limitMonth = function() {
 	if (parseInt(monthInput.element.value) > 12) {
 		monthInput.element.value = 12
@@ -141,15 +262,36 @@ monthInput.limitMonth = function() {
 		monthInput.element.value = 1
 	}
 }
-
+monthInput.confirmEntry = function() {
+	if (monthInput.element.value === "") {
+		monthInput.wrapper.classList.add("error")
+		existInvalidEntry = true
+	} else {
+		monthInput.wrapper.classList.remove("error")
+		existInvalidEntry = false
+	}
+}
 monthInput.init(function() {
 	monthInput.parseChars()
 	monthInput.limitMonth()
+	monthInput.confirmEntry()
 	cardMonthReference.updateElement(monthInput.element.value)
 	cardMonthReference.checkEmpty()
 })
-const yearInput = new Input("expirationYearInput", 2)
 
+const yearInput = new Input("expirationYearInput", "mmYyWrapper", 2)
 yearInput.init(function() {
 	yearInput.parseChars()
+	yearInput.confirmEntry()
+	cardYearReference.updateElement(yearInput.element.value)
+	cardYearReference.checkEmpty()
 })
+yearInput.confirmEntry = function() {
+	if (yearInput.element.value === "") {
+		yearInput.wrapper.classList.add("error")
+		existInvalidEntry = true
+	} else {
+		yearInput.wrapper.classList.remove("error")
+		existInvalidEntry = false
+	}
+}
