@@ -97,6 +97,10 @@ body {
   text-transform: uppercase;
 }
 
+.header .card.frontside .informations-texts .sub-informations .expiration-date {
+  display: flex;
+}
+
 .main {
   padding: 8rem 2rem 3rem;
   display: grid;
