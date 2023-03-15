@@ -68,6 +68,8 @@ body {
                     color: #2f2f2f;
                 }
             }
+
+            animation: happyCardUp 400ms ease backwards 1.75s paused;
         }
 
         // Card frontside
@@ -121,6 +123,8 @@ body {
                     }
                 }
             }
+
+            animation: happyCardDown 400ms ease backwards 2s paused;
         }
     }
 }
@@ -133,6 +137,30 @@ body {
     .limiter {
         width: 100%;
         max-width: 30rem;
+
+        .confirm {
+            font-family: inherit;
+            color: $light-grayish-violet;
+            background: $very-dark-violet;
+            font-weight: 500;
+            font-size: 1.6rem;
+            letter-spacing: 0.1rem;
+            padding: 1.25rem 0;
+            border-radius: 0.8rem;
+            cursor: pointer;
+            transition: transform 150ms ease;
+            width: 100%;
+
+            &:hover {
+                background: $dark-violet;
+                transform: scale(1.02);
+            }
+
+            &:focus-within {
+                background: $dark-violet;
+                outline: 0.4rem solid hsla(249, 99%, 64%,0.5);
+            }
+        }
 
         .register {
             display: none;
@@ -154,7 +182,6 @@ body {
                     outline: none;
                     border: none;
                     font-size: 1.4rem;
-                    color: $very-dark-violet;
 
                     &::placeholder {
                         color: $dark-grayish-violet;
@@ -168,6 +195,7 @@ body {
                         width: 100%;
                         padding: 0.75rem 1rem;
                         border-radius: 0.5rem;
+                        color: $very-dark-violet;
                     }
 
                     /* Chrome, Safari, Edge, Opera */
@@ -190,7 +218,7 @@ body {
                     padding: 0.1rem;
                     border-radius: 0.6rem;
                     margin: 0.6rem 0;
-
+                    
                     &:focus-within {
                         background: $active-input-border;
                     }
@@ -242,29 +270,43 @@ body {
                     }
                 }
 
-                .confirm {
-                    font-family: inherit;
-                    color: $light-grayish-violet;
-                    background: $very-dark-violet;
-                    font-weight: 500;
-                    font-size: 1.6rem;
-                    letter-spacing: 0.1rem;
-                    padding: 1.25rem 0;
-                    border-radius: 0.8rem;
-                    cursor: pointer;
-                    transition: transform 150ms ease;
+            }
 
-                    &:hover {
-                        background: $dark-violet;
-                        transform: scale(1.02);
-                    }
+            animation: fallOut 250ms ease backwards paused;
+        }
 
-                    &:focus-within {
-                        background: $dark-violet;
-                        outline: 0.4rem solid hsla(249, 99%, 64%,0.5);
-                    }
+        .finish {
+            display: none;
+            flex-direction: column;
+            row-gap: 3rem;
+            align-items: center;
+            text-align: center;
+            animation: opacityIn 400ms ease backwards;
+
+            .checkmark-icon {
+                width: 8rem;
+                
+                animation: fallInCheckmark 1s ease backwards 300ms;
+            }
+
+            .texts {
+                animation: opacityIn 400ms ease backwards 1.25s;
+
+                .congratulations {
+                    letter-spacing: 0.3rem;
+                    color: $dark-violet;
+                    margin-bottom: 1rem;
+                    font-size: 2.2rem;
                 }
 
+                .summary {
+                    color: $dark-grayish-violet;
+                    font-size: 1.4rem;
+                }
+            }
+
+            .confirm {
+                animation: opacityIn 400ms ease backwards 1.25s;
             }
         }
     }
@@ -277,7 +319,7 @@ body {
 
     &[data-current-screen="finish"] {
         .finish {
-            display: block;
+            display: flex;
         }
     }
 }
@@ -380,7 +422,7 @@ body {
     
         .limiter {
             width: 100%;
-            max-width: 36rem;
+            max-width: 40rem;
     
             .register {
     
@@ -514,6 +556,46 @@ body {
                     }    
                 }
             }
+
+            .finish {
+                .checkmark-icon {
+                    width: 6rem;
+                }
+            }
         }
+    }
+}
+
+// Animations
+@keyframes opacityIn {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes fallOut {
+    to {
+        transform: scale(0.98);
+        opacity: 0;
+    }
+}
+
+// Finish Screen
+@keyframes fallInCheckmark {
+    from {
+        opacity: 0;
+        transform: scale(2) rotateZ(197deg);
+    }
+}
+
+@keyframes happyCardUp {
+    50% {
+        transform: translateY(-5%)
+    }
+}
+
+@keyframes happyCardDown {
+    50% {
+        transform: translateY(5%)
     }
 }

@@ -42,6 +42,7 @@ body {
 .header .card.backside {
   right: 5%;
   top: 10%;
+  animation: happyCardUp 400ms ease backwards 1.75s paused;
 }
 .header .card.backside .informations-cvc {
   position: absolute;
@@ -54,6 +55,7 @@ body {
   bottom: -20%;
   left: 5%;
   box-shadow: 0 1rem 2rem -1rem hsla(278, 68%, 11%, 0.5);
+  animation: happyCardDown 400ms ease backwards 2s paused;
 }
 .header .card.frontside .circle {
   background: hsl(270, 3%, 87%);
@@ -104,8 +106,30 @@ body {
   width: 100%;
   max-width: 30rem;
 }
+.main .limiter .confirm {
+  font-family: inherit;
+  color: hsl(270, 3%, 87%);
+  background: hsl(278, 68%, 11%);
+  font-weight: 500;
+  font-size: 1.6rem;
+  letter-spacing: 0.1rem;
+  padding: 1.25rem 0;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  transition: transform 150ms ease;
+  width: 100%;
+}
+.main .limiter .confirm:hover {
+  background: hsl(278, 68%, 18%);
+  transform: scale(1.02);
+}
+.main .limiter .confirm:focus-within {
+  background: hsl(278, 68%, 18%);
+  outline: 0.4rem solid hsla(249, 99%, 64%, 0.5);
+}
 .main .limiter .register {
   display: none;
+  animation: fallOut 250ms ease backwards paused;
 }
 .main .limiter .register form {
   display: flex;
@@ -123,7 +147,6 @@ body {
   outline: none;
   border: none;
   font-size: 1.4rem;
-  color: hsl(278, 68%, 11%);
   /* Chrome, Safari, Edge, Opera */
   /* Firefox */
 }
@@ -140,6 +163,7 @@ body {
   width: 100%;
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
+  color: hsl(278, 68%, 11%);
 }
 .main .limiter .register form input::-webkit-outer-spin-button, .main .limiter .register form input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -193,31 +217,39 @@ body {
 .main .limiter .register form .inputs-wrapper .left-wrapper .text-error {
   bottom: -1.53rem;
 }
-.main .limiter .register form .confirm {
-  font-family: inherit;
-  color: hsl(270, 3%, 87%);
-  background: hsl(278, 68%, 11%);
-  font-weight: 500;
-  font-size: 1.6rem;
-  letter-spacing: 0.1rem;
-  padding: 1.25rem 0;
-  border-radius: 0.8rem;
-  cursor: pointer;
-  transition: transform 150ms ease;
+.main .limiter .finish {
+  display: none;
+  flex-direction: column;
+  row-gap: 3rem;
+  align-items: center;
+  text-align: center;
+  animation: opacityIn 400ms ease backwards;
 }
-.main .limiter .register form .confirm:hover {
-  background: hsl(278, 68%, 18%);
-  transform: scale(1.02);
+.main .limiter .finish .checkmark-icon {
+  width: 8rem;
+  animation: fallInCheckmark 1s ease backwards 300ms;
 }
-.main .limiter .register form .confirm:focus-within {
-  background: hsl(278, 68%, 18%);
-  outline: 0.4rem solid hsla(249, 99%, 64%, 0.5);
+.main .limiter .finish .texts {
+  animation: opacityIn 400ms ease backwards 1.25s;
+}
+.main .limiter .finish .texts .congratulations {
+  letter-spacing: 0.3rem;
+  color: hsl(278, 68%, 18%);
+  margin-bottom: 1rem;
+  font-size: 2.2rem;
+}
+.main .limiter .finish .texts .summary {
+  color: hsl(279, 6%, 55%);
+  font-size: 1.4rem;
+}
+.main .limiter .finish .confirm {
+  animation: opacityIn 400ms ease backwards 1.25s;
 }
 .main[data-current-screen=register] .register {
   display: block;
 }
 .main[data-current-screen=finish] .finish {
-  display: block;
+  display: flex;
 }
 
 @media screen and (min-width: 375px) {
@@ -291,7 +323,7 @@ body {
   }
   .main .limiter {
     width: 100%;
-    max-width: 36rem;
+    max-width: 40rem;
   }
   .main .limiter .register form {
     row-gap: 2rem;
@@ -387,5 +419,35 @@ body {
   }
   .main .limiter .register form .text-error {
     font-size: 1.2rem;
+  }
+  .main .limiter .finish .checkmark-icon {
+    width: 6rem;
+  }
+}
+@keyframes opacityIn {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes fallOut {
+  to {
+    transform: scale(0.98);
+    opacity: 0;
+  }
+}
+@keyframes fallInCheckmark {
+  from {
+    opacity: 0;
+    transform: scale(2) rotateZ(197deg);
+  }
+}
+@keyframes happyCardUp {
+  50% {
+    transform: translateY(-5%);
+  }
+}
+@keyframes happyCardDown {
+  50% {
+    transform: translateY(5%);
   }
 }/*# sourceMappingURL=index.css.map */

@@ -1,0 +1,20 @@
+`nameReference`: é o nome "JANE APPLESEED" na parte inferior do cartão.
+`nameInput`: é o input de texto com label "CARDHOLDER NAME"
+Caractéres válidos: de a-z, A-Z e " " (espaços em branco)
+
+Se o valor do usuário for um caractér valido, então:
+ Atualizar o nameReference
+
+Se pelo menos 1 caractér for invalido, então:
+	O `nameReference` deve parar de atualizar;
+	Uma mensagem de erro deve ser exibida embaixo de `nameInput`
+
+Se o primeiro caractér de `nameInput` for um espaço em branco, então o valor de `nameInput` é = "". Logo,
+um popup de required será retornado.
+
+Se existirem vários caractéres inicias de espaços em branco, como: "     JANE APPLESEED". Estes primeiros
+caractéres de espaço em branco devem ser removidos.
+
+Se o `nameInput` estiver em branco, então `nameReference` vai ser "JANE APPLESEED (padrão)"
+
+as entradas permitidas são apenas de inserções e de remoção de caractéres
